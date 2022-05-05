@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import C from './style';
 import {useNavigation} from "@react-navigation/native";
 import {useStateValue} from "../../contexts/StateContext";
+import api from "../../services/api";
 
 export default () => {
 
@@ -10,6 +11,32 @@ export default () => {
 
     const [cpf, setCpf] = useState('');
     const [password, setPassword] = useState('');
+
+    const handleLoginButton = async () => {
+        if(cpf && password){
+            let result = await api.login(cpf, password)
+
+            if(result.error === ''){
+                dispatch({type:'setToken', payload: {token: result.token}});
+                dispatch({type:'setUser', payload: {user: result.user}});
+
+                navigation.reset({
+                    index: 1,
+                    routes: [{name: 'ChoosePropertyScreen'}]
+                })
+
+            } else {
+                alert(result.error)
+            }
+
+        } else {
+            alert('Preencha os campos');
+        }
+    }
+
+    const handleRegisterButton = () => {
+        navigation.navigate('RegisterScreen')
+    }
 
     return (
         <C.Container>
@@ -26,16 +53,16 @@ export default () => {
             />
             <C.Field
                 placeholder='Digite sua senha'
-                securityTextEntry={true}
+                secureTextEntry={true}
                 value={password}
                 onChangeText={t=>setPassword(t)}
             />
 
-            <C.ButtonArea onPress={null}>
+            <C.ButtonArea onPress={handleLoginButton}>
                 <C.ButtonText>ENTRAR</C.ButtonText>
             </C.ButtonArea>
 
-            <C.ButtonArea onPress={null}>
+            <C.ButtonArea onPress={handleRegisterButton}>
                 <C.ButtonText>CADASTRAR-SE</C.ButtonText>
             </C.ButtonArea>
 

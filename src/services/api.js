@@ -42,6 +42,9 @@ export default {
     validateToken: async () => {
         let token = await this.getToken();
         return await request('post', '/auth/validate', {}, token);
+    },
+    login: async (cpf, password) => {
+        return await request('post', '/auth/login', {cpf, password});
     }
 
 };
