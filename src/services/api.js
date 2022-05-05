@@ -40,11 +40,22 @@ export default {
         return await AsyncStorage.getItem('token');
     },
     validateToken: async () => {
-        let token = await this.getToken();
+        let token = await AsyncStorage.getItem('token');
         return await request('post', '/auth/validate', {}, token);
     },
     login: async (cpf, password) => {
         return await request('post', '/auth/login', {cpf, password});
+    },
+    logout: async () => {
+        let token = await AsyncStorage.getItem('token');
+        let json = await request('post', '/auth/logout', {}, token);
+        await AsyncStorage.removeItem('token');
+        return json;
+    },
+    register: async (name, email, cpf, password, password_confirm) => {
+        return await request('post', '/auth/register', {
+            name, email, cpf, password, password_confirm
+        })
     }
 
 };
