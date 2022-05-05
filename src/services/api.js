@@ -57,6 +57,15 @@ export default {
         return await request('post', '/auth/register', {
             name, email, cpf, password, password_confirm
         })
+    },
+    getWall: async () => {
+        let token = await AsyncStorage.getItem('token');
+        return await request('get', '/walls', {}, token)
+    },
+    likeWallPost: async (id) => {
+        let token = await AsyncStorage.getItem('token');
+        return await request('post', `/wall/${id}/like`, {}, token);
+
     }
 
 };
