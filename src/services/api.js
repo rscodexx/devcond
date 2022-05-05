@@ -65,7 +65,10 @@ export default {
     likeWallPost: async (id) => {
         let token = await AsyncStorage.getItem('token');
         return await request('post', `/wall/${id}/like`, {}, token);
-
-    }
+    },
+    getDocs: async () => {
+        let token = await AsyncStorage.getItem('token');
+        return await request('get', '/docs', {}, token)
+    },
 
 };
