@@ -3,6 +3,7 @@ import {createStackNavigator} from "@react-navigation/stack";
 import PreLoadScreen from '../screens/PreLoadScreen'
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
+import ChoosePropertyScreen from "../screens/ChoosePropertyScreen";
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,11 @@ export default () => {
             <Stack.Screen
                 name='RegisterScreen'
                 component={RegisterScreen}
+            />
+            <Stack.Screen
+                name='ChoosePropertyScreen'
+                component={ChoosePropertyScreen}
+                options={{headerShown: false}}
             />
         </Stack.Navigator>
     )
