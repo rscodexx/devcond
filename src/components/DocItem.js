@@ -24,8 +24,6 @@ export default ({data}) => {
 
     const handleClick = async () => {
 
-        console.warn(data);
-
         const supported = await Linking.canOpenURL(data.fileurl);
 
         if(supported){

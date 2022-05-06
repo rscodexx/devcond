@@ -4,6 +4,8 @@ import WallScreen from "../screens/WallScreen";
 import DrawerCustom from "../components/DrawerCustom";
 import DocumentScreen from "../screens/DocumentScreen";
 import BilletScreen from "../screens/BilletScreen";
+import WarningScreen from "../screens/WarningScreen";
+import WarningAddScreen from "../screens/WarningAddScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -29,6 +31,12 @@ export default () => {
             />
             <Drawer.Screen name='BilletScreen'
                            component={BilletScreen}
+            />
+            <Drawer.Screen name='WarningScreen'
+                           component={WarningScreen}
+            />
+            <Drawer.Screen name='WarningAddScreen'
+                           component={WarningAddScreen}
             />
         </Drawer.Navigator>
     )

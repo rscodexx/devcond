@@ -78,5 +78,42 @@ export default {
             property: property.id
         }, token)
     },
+    getWarnings: async () => {
+        let token = await AsyncStorage.getItem('token');
+        let property = await AsyncStorage.getItem('property');
+        property = JSON.parse(property);
+        return await request('get', '/warnings', {
+            property: property.id
+        }, token)
+    },
+    addWarningFile: async (file) => {
+        let token = await AsyncStorage.getItem('token');
+        let formData = new FormData();
+        formData.append('photo', {
+            uri: file.assets[0].uri,
+            type: file.assets[0].type,
+            name: file.assets[0].fileName
+        });
+        let req = await fetch(`${baseUrl}/warning/file`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        });
+
+        return await req.json();
+    },
+    addWarning: async (title, list) => {
+        let token = await AsyncStorage.getItem('token');
+        let property = await AsyncStorage.getItem('property');
+        property = JSON.parse(property);
+        return await request('post', '/warning', {
+            title,
+            list,
+            property: property.id
+        }, token)
+    },
 
 };
