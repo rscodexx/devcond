@@ -115,5 +115,9 @@ export default {
             property: property.id
         }, token)
     },
+    getReservations: async () => {
+        let token = await AsyncStorage.getItem('token');
+        return await request('get', '/reservations', {}, token)
+    }
 
 };
